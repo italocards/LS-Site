@@ -38,7 +38,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Contact Form Handling
+/* Contact Form Handling
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -73,7 +73,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         submitButton.textContent = originalText;
         submitButton.disabled = false;
     }, 2000);
-});
+});*/
 
 // Add active class to navigation on scroll
 window.addEventListener('scroll', function() {
