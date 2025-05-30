@@ -255,21 +255,37 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const carousel = document.getElementById('client-carousel');
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
-
-  console.log("Carrossel iniciado");
-
-  const scrollAmount = 280;
-
-  prevBtn.addEventListener('click', () => {
-    console.log("Anterior clicado");
-    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    const carousel = document.getElementById('client-carousel');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+  
+    console.log("Carrossel iniciado");
+  
+    const scrollAmount = 280;
+    let direction = 1; // 1 = direita, -1 = esquerda
+  
+    // Botões manuais
+    prevBtn.addEventListener('click', () => {
+      console.log("Anterior clicado");
+      carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+  
+    nextBtn.addEventListener('click', () => {
+      console.log("Próximo clicado");
+      carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+  
+    // Auto scroll
+    setInterval(() => {
+      // Verifica se está no início ou no fim para inverter a direção
+      const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+      if (carousel.scrollLeft >= maxScrollLeft) {
+        direction = -1;
+      } else if (carousel.scrollLeft <= 0) {
+        direction = 1;
+      }
+  
+      carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }, 3000); // a cada 3 segundos
   });
-
-  nextBtn.addEventListener('click', () => {
-    console.log("Próximo clicado");
-    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
-});
+  
