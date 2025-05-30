@@ -134,14 +134,17 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Phone number formatting
-document.getElementById('telefone').addEventListener('input', function(e) {
+const telefoneInput = document.getElementById('telefone');
+if (telefoneInput) {
+  telefoneInput.addEventListener('input', function(e) {
     let value = e.target.value.replace(/\D/g, '');
     value = value.replace(/(\d{2})(\d)/, '($1) $2');
     value = value.replace(/(\d{4})(\d)/, '$1-$2');
     value = value.replace(/(\d{4})-(\d)(\d{4})/, '$1$2-$3');
     e.target.value = value;
-});
+  });
+}
+
 
 // Add loading animation to buttons
 document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
@@ -251,3 +254,22 @@ document.addEventListener('DOMContentLoaded', function () {
     typeLetter();
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.getElementById('client-carousel');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+
+  console.log("Carrossel iniciado");
+
+  const scrollAmount = 280;
+
+  prevBtn.addEventListener('click', () => {
+    console.log("Anterior clicado");
+    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    console.log("Próximo clicado");
+    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+});

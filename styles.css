@@ -458,6 +458,7 @@ section {
     font-size: 1.2rem;
     color: var(--gray-medium);
     margin-bottom: 3rem;
+    margin-top: 3rem;
 }
 
 .clients-grid {
@@ -789,3 +790,75 @@ section {
 section[id] {
     scroll-margin-top: 80px;
 }
+
+
+
+/* Carrosel Nossos clientes */
+
+.client-carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    margin-top: 2rem;
+    padding: 0 40px;
+}
+
+.client-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 2rem;
+    scrollbar-width: none; /* Firefox */
+}
+.client-carousel::-webkit-scrollbar {
+    display: none; /* Chrome */
+}
+
+.client-carousel a {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.client-carousel img {
+    max-height: 80px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    box-shadow: var(--shadow);
+    padding: 0.8rem;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+}
+.carousel-btn.left {
+    left: 0;
+}
+.carousel-btn.right {
+    right: 0;
+}
+.carousel-btn i {
+    font-size: 1rem;
+}
+
+.client-carousel img {
+    max-height: 80px;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.client-carousel img:hover {
+    transform: scale(1.1);
+}
+

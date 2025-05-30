@@ -82,3 +82,16 @@ body {
     z-index: 0;
     pointer-events: none;
 }
+
+.logo-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+    display: block;
+}
+
+.logo {
+    max-width: 200px;
+    height: auto;
+}
