@@ -1,0 +1,36 @@
+/* Location */
+.location {
+    background: var(--gray-light);
+}
+
+.location-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.location-info h3 {
+    font-size: 1.6rem;
+    color: var(--primary-blue);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.location-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.location-item i {
+    color: var(--secondary-blue);
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+}
+
+.map-container {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
