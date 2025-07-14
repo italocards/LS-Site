@@ -38,42 +38,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-/* Contact Form Handling
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-    
-    // Simple validation
-    if (!data.nome || !data.email || !data.mensagem) {
-        alert('Por favor, preencha todos os campos obrigatórios.');
-        return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        alert('Por favor, insira um e-mail válido.');
-        return;
-    }
-    
-    // Simulate form submission
-    const submitButton = this.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    
-    submitButton.textContent = 'Enviando...';
-    submitButton.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-        this.reset();
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-    }, 2000);
-});*/
+
 
 // Add active class to navigation on scroll
 window.addEventListener('scroll', function() {
@@ -258,34 +223,85 @@ document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.getElementById('client-carousel');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
-  
-    console.log("Carrossel iniciado");
-  
+
     const scrollAmount = 280;
-    let direction = 1; // 1 = direita, -1 = esquerda
-  
-    // Botões manuais
+    let direction = 1;
+    let isAnimating = false;
+
+    // Função de scroll suave personalizada
+    function smoothScrollTo(element, to, duration = 600) {
+        const start = element.scrollLeft;
+        const change = to - start;
+        const startTime = performance.now();
+
+        function animateScroll(currentTime) {
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            element.scrollLeft = start + change * easeInOutQuad(progress);
+
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll);
+            } else {
+                animateVisibleCarouselItems();
+                isAnimating = false;
+            }
+        }
+
+        requestAnimationFrame(animateScroll);
+    }
+
+    // Easing para suavidade
+    function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    // Anima os itens visíveis
+    function animateVisibleCarouselItems() {
+        const items = carousel.querySelectorAll('.fade-up');
+
+        items.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            const carouselRect = carousel.getBoundingClientRect();
+
+            const isVisible =
+                itemRect.left >= carouselRect.left &&
+                itemRect.right <= carouselRect.right;
+
+            if (isVisible) {
+                item.classList.add('animate');
+            }
+        });
+    }
+
+    // Botões
     prevBtn.addEventListener('click', () => {
-      console.log("Anterior clicado");
-      carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        if (isAnimating) return;
+        isAnimating = true;
+        smoothScrollTo(carousel, carousel.scrollLeft - scrollAmount);
     });
-  
+
     nextBtn.addEventListener('click', () => {
-      console.log("Próximo clicado");
-      carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        if (isAnimating) return;
+        isAnimating = true;
+        smoothScrollTo(carousel, carousel.scrollLeft + scrollAmount);
     });
-  
+
     // Auto scroll
     setInterval(() => {
-      // Verifica se está no início ou no fim para inverter a direção
-      const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-      if (carousel.scrollLeft >= maxScrollLeft) {
-        direction = -1;
-      } else if (carousel.scrollLeft <= 0) {
-        direction = 1;
-      }
-  
-      carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-    }, 3000); // a cada 3 segundos
-  });
-  
+        if (isAnimating) return;
+
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+
+        if (carousel.scrollLeft >= maxScrollLeft) {
+            direction = -1;
+        } else if (carousel.scrollLeft <= 0) {
+            direction = 1;
+        }
+
+        isAnimating = true;
+        smoothScrollTo(carousel, carousel.scrollLeft + direction * scrollAmount);
+    }, 3000);
+
+    // Inicializar
+    animateVisibleCarouselItems();
+});
