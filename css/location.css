@@ -13,7 +13,7 @@
     font-size: 1.6rem;
     color: var(--primary-blue);
     margin-bottom: 2rem;
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .location-item {
@@ -33,4 +33,8 @@
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
+}
+
+.location-info p {
+    font-weight: 600;
 }

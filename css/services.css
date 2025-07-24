@@ -45,10 +45,11 @@
     font-size: 1.6rem;
     margin-bottom: 1rem;
     color: var(--primary-blue);
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .service-card p {
     line-height: 1.7;
     color: var(--gray-medium);
+    font-weight: 600;
 }

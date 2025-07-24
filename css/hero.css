@@ -48,7 +48,7 @@
 
 .hero-title {
     font-size: 3.5rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 1.5rem;
     line-height: 1.2;
     opacity: 0;
@@ -60,7 +60,7 @@
     font-size: 1.3rem;
     margin-bottom: 2.5rem;
     opacity: 0.95;
-    font-weight: 400;
+    font-weight: 600;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 1s ease 0.8s forwards;
@@ -80,7 +80,7 @@
     padding: 1rem 2.5rem;
     text-decoration: none;
     border-radius: 50px;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 1rem;
     transition: all 0.3s ease;
     display: inline-block;

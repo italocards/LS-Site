@@ -18,9 +18,10 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Red Hat Display', sans-serif;
     line-height: 1.6;
     color: var(--gray-dark);
+    font-weight: 600;
 }
 
 html {
@@ -43,7 +44,7 @@ section {
     text-align: center;
     margin-bottom: 3rem;
     color: var(--primary-blue);
-    font-weight: 700;
+    font-weight: 800;
 }
 
 /* Animation Classes */
