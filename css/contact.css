@@ -78,3 +78,36 @@
     color: var(--primary-blue);
     font-size: 1.2rem;
 }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+        padding: 2rem;
+    }
+
+    .contact-method {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-info h3 {
+        font-size: 1.4rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.95rem;
+        padding: 0.9rem;
+    }
+
+    .contact-method i {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+}
