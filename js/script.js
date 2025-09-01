@@ -24,21 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Smooth Scrolling for Navigation Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-
 
 // Add active class to navigation on scroll
 window.addEventListener('scroll', function() {
@@ -125,7 +110,7 @@ document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
 
 // WhatsApp integration
 function openWhatsApp() {
-    const phone = '5511987654321'; // Replace with actual WhatsApp number
+    const phone = '5585996021384';
     const message = 'Olá! Gostaria de saber mais sobre os serviços da LS Gestão Contábil.';
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -304,4 +289,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar
     animateVisibleCarouselItems();
+});
+
+// Smooth scroll customizado (mais lento e perceptível)
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector(".header");
+  const headerHeight = header.offsetHeight;
+
+  document.querySelectorAll('.nav-link[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute("href");
+      const target = document.querySelector(targetId);
+      if (!target) return;
+
+      const startPosition = window.pageYOffset;
+      const targetPosition = target.offsetTop - headerHeight;
+      const distance = targetPosition - startPosition;
+      const duration = 1200; // tempo da animação em ms
+      let startTime = null;
+
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      }
+
+      function easeInOutQuad(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return (c / 2) * t * t + b;
+        t--;
+        return (-c / 2) * (t * (t - 2) - 1) + b;
+      }
+
+      requestAnimationFrame(animation);
+    });
+  });
 });
