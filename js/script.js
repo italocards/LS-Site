@@ -87,13 +87,21 @@ window.addEventListener('scroll', function() {
 const telefoneInput = document.getElementById('telefone');
 if (telefoneInput) {
   telefoneInput.addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\D/g, '');
-    value = value.replace(/(\d{2})(\d)/, '($1) $2');
-    value = value.replace(/(\d{4})(\d)/, '$1-$2');
-    value = value.replace(/(\d{4})-(\d)(\d{4})/, '$1$2-$3');
-    e.target.value = value;
+    let digits = e.target.value.replace(/\D/g, '').slice(0, 11); // só 11 dígitos
+    let formatted = '';
+
+    if (digits.length <= 2) {
+      formatted = '(' + digits;
+    } else if (digits.length <= 7) {
+      formatted = '(' + digits.slice(0, 2) + ') ' + digits.slice(2);
+    } else {
+      formatted = '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 7) + '-' + digits.slice(7);
+    }
+
+    e.target.value = formatted;
   });
 }
+
 
 
 // Add loading animation to buttons
@@ -330,3 +338,62 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+document.getElementById("contact-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    const form = e.target;
+    let isValid = true;
+
+    // Limpa erros anteriores
+    form.querySelectorAll(".error-message").forEach(el => el.textContent = "");
+
+    // Campos
+    const nome = form.querySelector("#nome");
+    const email = form.querySelector("#email");
+    const telefone = form.querySelector("#telefone");
+    const mensagem = form.querySelector("#mensagem");
+
+    // Validações
+    if (nome.value.trim().length < 3) {
+        nome.nextElementSibling.textContent = "Digite pelo menos 3 caracteres.";
+        isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value.trim())) {
+        email.nextElementSibling.textContent = "E-mail inválido.";
+        isValid = false;
+    }
+
+    if (telefone.value.trim()) {
+        const telDigits = telefone.value.replace(/\D/g, '');
+        if (telDigits.length !== 11) {
+            telefone.nextElementSibling.textContent = "Informe um número celular válido com 11 dígitos (ex: (85) 98417-5416).";
+            isValid = false;
+        }
+    }
+
+
+    if (mensagem.value.trim().length < 10) {
+        mensagem.nextElementSibling.textContent = "Digite pelo menos 10 caracteres.";
+        isValid = false;
+    }
+
+    if (!isValid) return; // impede envio
+
+    // Envia se válido
+    fetch("https://formsubmit.co/ajax/lsgestaocontabil.contato@gmail.com", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    .then(response => response.json())
+    .then(data => {
+        form.reset();
+        document.getElementById("success-message").style.display = "block";
+        setTimeout(() => {
+            document.getElementById("success-message").style.display = "none";
+        }, 5000);
+    })
+    .catch(error => console.log(error));
+});
+

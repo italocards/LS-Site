@@ -277,29 +277,36 @@
             <h2 class="section-title fade-up">Entre em Contato</h2>
             <div class="contact-content">
                 <div class="contact-form fade-up">
-                    <form action="https://formsubmit.co/lsgestaocontabil.contato@gmail.com" method="POST">
-                        
+                    <form id="contact-form">
                         <input type="hidden" name="_subject" value="Novo contato pelo site LS Gestão Contábil">
+                        <input type="hidden" name="_captcha" value="false">
                         <div class="form-group">
-                            <input type="text" name="nome" placeholder="Seu nome" required>
+                            <input type="text" name="nome" id="nome" placeholder="Seu nome" required>
+                            <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="Seu e-mail" required>
+                            <input type="email" name="email" id="email" placeholder="Seu e-mail" required>
+                            <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <input type="tel" name="telefone" placeholder="Seu telefone">
+                            <input type="tel" name="telefone" id="telefone" placeholder="Seu telefone">
+                            <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="empresa" placeholder="Nome da empresa">
+                            <input type="text" name="empresa" id="empresa" placeholder="Nome da empresa">
+                            <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <textarea name="mensagem" placeholder="Sua mensagem" rows="5" required></textarea>
+                            <textarea name="mensagem" id="mensagem" placeholder="Sua mensagem" rows="5" required></textarea>
+                            <span class="error-message"></span>
                         </div>
                         <button type="submit" class="btn-primary">Enviar Mensagem</button>
-
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="obrigado.html">
                     </form>
+
+                    <!-- Mensagem de sucesso escondida -->
+                    <p id="success-message" style="display:none; color:green; margin-top:10px;">
+                    ✅ Sua mensagem foi enviada com sucesso! Em breve entraremos em contato.
+                    </p>
                 </div>
                 <div class="contact-info fade-up">
                     <h3>Fale Conosco</h3>
